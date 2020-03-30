@@ -13,7 +13,7 @@ Most design systems are really just pattern libraries: a big box of UI lego piec
  
 Design systems are always evolving, and the way you share and encourage adoption of new iterations will evolve along the way as well.
 
-Design system
+Design systems
 Rules constraint principle
 Accessibilety: foreground, background, border
 
