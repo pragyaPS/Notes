@@ -29,4 +29,19 @@
     } );
 
 
-Writing a function to add
+it’s possible that the resolution of a Promise is rejection instead of fulfillment. Unlike a fulfilled Promise, where the value is always programmatic, a rejection value — commonly called a rejection reason — can either be set directly by the program logic, or it can result implicitly from a runtime exception.
+
+With Promises, the then(..) call can actually take two functions, the first for fulfillment (as shown earlier), and the second for rejection:
+
+    add( fetchX(), fetchY() )
+    .then(
+        // fullfillment handler
+        function(sum) {
+            console.log( sum );
+        },
+        // rejection handler
+        function(err)
+    console.error( err ); // bummer!
+        }
+    );
+
