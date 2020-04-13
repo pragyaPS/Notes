@@ -468,6 +468,83 @@ unfortunately “race” is kind of a loaded term, because race conditions are g
 
 A race requires at least one “runner,” so if you pass an empty array, instead of immediately resolving, the main race([..]) Promise will never resolve. This is a footgun! ES6 should have specified that it either fulfills, rejects, or just throws some sort of synchronous error. Unfortunately, because of precedence in Promise libraries predating ES6 Promise, they had to leave this gotcha in there, so be careful never to send in an empty array.
 
+    // `foo()` is a Promise-aware function
+
+    // `timeoutPromise(..)`, defined ealier, returns
+    // a Promise that rejects after a specified delay
+
+    // setup a timeout for `foo()`
+    Promise.race( [
+        foo(),                  // attempt `foo()`
+        timeoutPromise( 3000 )  // give it 3 seconds
+    ] )
+    .then(
+        function(){
+            // `foo(..)` fulfilled in
+    time!
+        },
+        function(err){
+            // either `foo()` rejected, or it just
+            // didn't finish in time, so inspect
+            // `err` to know which
+        }
+    );
+
+
+#### Finally
+
+The key question to ask is, “What happens to the promises that get discarded/ignored?” We’re not asking that question from the performance perspective — they would typically end up garbage collection eligible — but from the behavioral perspective (side effects, etc.). Promises cannot be canceled — and shouldn’t be as that would destroy the external immutability trust discussed in **“Promise Uncancelable”** — so they can only be silently ignored. But what if foo() in the previous example is reserving some sort of resource for usage, but the timeout fires first and causes that promise to be ignored? Is there anything in this pattern that proactively frees the reserved resource after the timeout, or otherwise cancels any side effects it may have had? What if all you wanted was to log the fact that foo() timed out? Some developers have proposed that Promises need a finally(..) callback registration, which is always called when a Promise resolves, and allows you to specify any cleanup that may be necessary. This doesn’t exist in the specification at the moment, but it may come in ES7+. We’ll have to wait and see. It might look like: 
+    var p = Promise.resolve( 42 );
+
+    p.then( something )
+    .finally( cleanup )
+    .then( another )
+    .finally( cleanup );
+
+Some library provides function for promise like any([ .. ]), first([ .. ]), last([ .. ])here’s how we could define first([ .. ]). 
+
+    // polyfill-safe guard check
+    if (!Promise.first) {
+        Promise.first = function(prs) {
+            return new Promise( function(resolve,reject){
+                // loop through all promises
+                prs.forEach( function(pr){
+                    // normalize the value
+                    Promise.resolve( pr )
+                    // whichever one fulfills first wins, and
+                    // gets to resolve the main promise
+                    .then( resolve );
+                } );
+            } );
+        };
+    }
+
+#### Concurrent iteration
+
+Sometimes you want to iterate over a list of Promises and perform some task against all of them, much like you can do with synchronous arrays (e.g., forEach(..), map(..), some(..), and every(..)). If the task to perform against each Promise is fundamentally synchronous, these work fine, just as we used forEach(..) in the previous snippet. But if the tasks are fundamentally asynchronous, or can/should otherwisebe performed concurrently, you can use async versions of these utilities as provided by many libraries.
+
+Consider an asynchronous map(..) utility that takes an array of values (could be Promises or anything else), plus a function (task) to perform against each. map(..) itself returns a promise whose fulfillment value is an array that holds (in the same mapping order) the async fulfillment value from each task:
+
+    if (!Promise.map) {
+        Promise.map = function(vals,cb) {
+            // new promise that waits for all mapped promises
+            return Promise.all(
+                // note: regular array `map(..)`, turns
+                // the array of values into an array of
+    // promises
+                vals.map( function(val){
+                    // replace `val` with a new promise that
+                    // resolves after `val` is async mapped
+                    return new Promise( function(resolve){
+                        cb( val, resolve );
+                    } );
+                } )
+            );
+        };
+    }
+
+
+
 
 
 
