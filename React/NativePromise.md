@@ -543,6 +543,46 @@ Consider an asynchronous map(..) utility that takes an array of values (could be
         };
     }
 
+Use of the function
+
+    Promise.map( [p1,p2,p3], function(pr,done){
+        // make sure the item itself is a Promise
+        Promise.resolve( pr )
+        .then(
+            // extract value as `v`
+            function(v){
+                // map fulfillment `v` to new value
+                done( v * 2 );
+            },
+            // or, map to promise
+    rejection message
+            done
+        );
+    } )
+    .then( function(vals){
+        console.log( vals );    [42,84,"Oops"]
+    } );
+
+#### Recap
+
+* reject(..) simply rejects the promise, but resolve(..) can either fulfill the promise or reject it, depending on what it’s passed. If resolve(..) is passed an immediate, non-Promise, non-thenable value, then the promise is fulfilled with that value.
+But if resolve(..) is passed a genuine Promise or thenable value, that value is unwrapped recursively, and whatever its final resolution/state is will be adopted by the promise.
+ 
+* Promise.resolve(..) is usually used to create an already-fulfilled Promise in a similar way to Promise.reject(..). However, Promise.resolve(..) also unwraps thenable values. In that case, the Promise returned adopts the final resolution of the thenable you passed in, which could either be fulfillment or rejection. Promise.resolve(..) doesn’t do anything if what you pass is already a genuine Promise; it just returns the value directly. So there’s no overhead to calling Promise.resolve(..) on values that you don’t know the nature of, if one happens to already be a genuine Promise.
+
+#### Promise Performance
+
+it’s clear Promises have a fair bit more going on, which means they are naturally at least a tiny bit slower. Think back to just the simple list of trust guarantees that Promises offer, as compared to the ad hoc solution code you’d have to layer on top of callbacks to achieve the same protections. More work to do, more guards to protect, means that Promises are slower as compared to naked, untrustable callbacks.
+
+Promises are a little slower, but in exchange you’re getting a lot of trustability, non-Zalgo predictability, and composability built in. Maybe the limitation is not actually their performance, but your lack of perception of their benefits?
+
+They don’t get rid of callbacks, they just redirect the orchestration of those callbacks to a trustable intermediary mechanism that sits between us and another utility.
+
+
+
+
+    
+
 
 
 
