@@ -153,3 +153,24 @@ Define a step function
 
 Try changing the order of s1 and s2. make sure we can call s1 three times (as foo has 2 yield) and s2 four time.
 
+
+### Producer and iterators
+
+producer function using the concept closures
+
+    var gimmeSomething = (function(){
+        var nextVal;
+        return function(){
+            if (nextVal === undefined) {
+                nextVal = 1;
+            }
+            else {
+                nextVal = (3 * nextVal) + 6;
+            }
+            return nextVal;
+        };
+    })();
+
+The nextVal computation logic here could have been simplified, but conceptually, we don’t want to calculate the next value (aka nextVal) until the next gimmeSomething() call happens, because in general that could be a resource-leaky design for producers of more persistent or resource-limited values than simple numbers.
+
+The **Symbol.iterator** well-known symbol specifies the default iterator for an object. Used by for...of.
