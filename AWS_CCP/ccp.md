@@ -98,3 +98,16 @@ the **S3** standard is cost-effective only for frequently accessed data. This is
 **S3 One Zone-Infrequently** Accessed storage class is cost-effective for storing data in a single zone. The data is not resilient to the physical loss of the Availability Zone resulting from disasters, such as earthquakes and floods. This is also less available.
 
 **AWS Redshift** is a data warehouse service. Redshift supports client connections with many types of applications, including business intelligence (BI), reporting, data, and analytics tools.
+
+The following are the key concepts for VPCs:
+
+A **virtual private cloud (VPC)** is a virtual network dedicated to your AWS account.
+
+* A subnet is a range of IP addresses in your VPC.
+* A route table contains a set of rules, called routes, that are used to determine where network traffic is directed.
+
+* An internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between instances in your VPC and the internet. It therefore imposes no availability risks or bandwidth constraints on your network traffic.
+
+* A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services powered by PrivateLink without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection. Instances in your VPC do not require public IP addresses to communicate with resources in the service. Traffic between your VPC and the other service does not leave the Amazon network.
+
+A **security group** acts as a virtual firewall for your instance to control inbound and outbound traffic. When you launch an instance in a VPC, you can assign up to five security groups to the instance. Security groups act at the instance level, not the subnet level. Therefore, each instance in a subnet in your VPC can be assigned to a different set of security groups.
