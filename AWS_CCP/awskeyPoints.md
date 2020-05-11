@@ -151,3 +151,130 @@ to eight healthy records selected at random.
 
 AWS Aurora is 5 times faster than the traditional MySQL database.
 
+**AWS Direct Connect** enables you to securely connect your AWS environment to your on-premises data center or office location over a standard 1 gigabit or 10 gigabit Ethernet fiber-optic connection. AWS Direct Connect offers dedicated high speed, low latency connection, which bypasses internet service providers in your network path. An AWS Direct Connect location provides access to Amazon Web Services in the region it is associated with, as well as access to other US regions. AWS Direct Connect allows you to logically partition the fiber-optic connections into multiple logical connections called Virtual Local Area Networks
+
+(VLAN). You can take advantage of these logical connections to improve security, differentiate traffic, and achieve compliance requirements.
+
+**AWS Lambda** is the compute component of AWS that lets you run code in a serverless environment. Using Lambda there is no need to provision a server. A user just needs to upload his code and run it
+
+
+**AWS Personal Health Dashboard** provides alerts and remediation guidance when AWS is experiencing events that may impact you. The dashboard also provides forward-looking notifications, and you can set up alerts across multiple channels, including email and mobile notifications, so you receive the timely and relevant information to help plan for scheduled changes that may affect you.
+
+**AWS Trusted Advisor** gives recommendations on Cost Optimization, Performance, Security, Fault Tolerance and Service Limits
+
+The benefit of using the AWS cloud is that it gives us the ability to focus on revenue-generating activities. AWS handles all the “infrastructure” related components thus taking off a major burden from the user’s end and the customer can focus on building other components of his need.
+
+**Dedicated hosts** provide physical isolation of a customer workload. This is a physical server fully dedicated for customer’s use
+
+**AWS Config** is useful for auditing the change of AWS resources. This will also provide a history of configuration changes for an AWS resource. This will also show the interconnection between AWS resources. Obviously this is used for auditing the “change management” of AWS resources.
+
+**AWS Organizations** allow consolidating multiple AWS accounts to obtain volume discounts. When a customer has multiple AWS accounts, he can use consolidated billing for consolidating the billing of his various AWS accounts. Then he is also eligible for the volume pricing discounts that AWS offers.
+
+“Spot Instance” prices are set by Amazon EC2 and adjust gradually based on long-term trends in supply and demand for Spot Instance capacity.
+
+Consolidated billing gives the advantage of **volume pricing discounts**. When a customer has multiple AWS accounts, he can use “consolidated billing” for consolidating the billing of these various AWS accounts to get the volume pricing discount that AWS offers.
+
+an **IAM Group** is used to apply the same IAM policy to a large set of users. IAM groups are a “group” of “related” users having the “same permissions”. These permissions are implemented by applying an IAM policy to the concerned IAM group.
+
+**autoscaling** increases and decreases the compute capacity as load changes. This would imply both “scaling out” and “scaling in” means increasing and decreasing the compute capacity based on the changes in load.
+
+**Load balancing** is used to load balance traffic to ec2 instances. When a particular instance is overloaded, the remaining traffic that is coming in would be diverted to the other set of instances behind the ELB.
+
+**Amazon Route53 and CloudFront are global services**. CloudFront is a global service because it is a content distribution network, designed to serve customers throughout the globe. Route53 is a global service because it uses the “latency routing” policy where it will serve the customers based the “lowest latency” irrespective of the location of a customer
+
+S3 global but data is regional
+s3 buckets are created within the selected region
+
+
+the **AWS CloudFormation template** and the AWS console can be used to launch the AWS RDS cluster. CF templates are nothing but JSON templates that have “name” and “value” pairs, where a customer can specify the configuration of RDS instances. This template is used to implement “infrastructure as code”. Also, the AWS Console under the “database” section, provides the UI for the creation of RDS instances.
+
+AWS VPC gives you an isolated portion in AWS Cloud, to set up your AWS resources
+
+AWS Storage gateway extends the storage of on-premises application into the cloud, thus providing a hybrid storage service. This is used to cache data in local virtual machines and hardware gateway appliances. This provides low latency performance. Using AWS Storage gateway is both durable and secure.
+
+**RDS is a managed service** and therefore it is the responsibility of AWS to manage the underlying hardware, maintenance of the operating system, etc. This is a major advantage of using RDS over traditional databases.
+
+AWS Organization for consolidated billing would be easier and from the payer, the account invites the member accounts to join. Using Organizations, if a user has multiple AWS accounts, he can avail of the volume pricing discounts offered by AWS.
+
+**AWS offers price reductions** to customers due to its massive economies of scale. Since AWS operates globally, and on a large scale, it provides periodic price reductions to customers.
+
+**AWS CloudTrail and CloudWatch** can be used to capture information about AWS account activities. CloudTrail is used to capture all the API related activities in an AWS account. CloudWatch logs are used to store all AWS services’ related activities in an AWS account.
+
+
+AWS patches database software and is also responsible for running penetration tests (including the prohibited services). Please note that AWS conducts penetration tests on its services regularly. Even customers are allowed to conduct penetration tests on “permitted” services after prior approval from AWS. RDS software patching and maintenance is the responsibility of AWS.
+
+AWS provides the ability to automatically provision various AWS resources. Using CLI and CF templates, the time to provision AWS resources is dramatically reduced.
+
+AWS helps to move from an upfront capital expense (CapEx) to variable operational expense (OpEx). The operational expenses are variable and this is one of the greatest benefits of using AWS.
+
+AWS Simple Monthly Calculator enables you to estimate the monthly cost of AWS services based on your expected usage. With a simple monthly calculator, you can estimate your monthly bill service-wise, region-wise. For each service, you can categorize your spending ( Eg: Glacier has categories like “Storage”, “Retrieval”, “Requests”, “Data Transfer” etc).
+
+
+AWS offers **Trusted Advisor security checks and S3 copyrighted content detection**. Trusted Advisor provides recommendations on Performance, Security, Fault tolerance, Service Limits, and Cost Optimization
+
+AWS CloudWatch is used to monitor whether your particular EC2 instance or instances have sufficient CPU capacity. Based on this ( percentile ) you can determine whether you need additional EC2 instances or you want to reduce your current EC2 instances.
+
+AWS is responsible for the hardware maintenance when a company is hosting a web application in a docker container on Amazon EC2 instances.
+
+high availability means that the components of an application or architecture are available in spite of the loss of one of the components of an application or architecture. This means that even when a single component fails the others are available for the user
+
+EMR uses the Hadoop Framework. Also, EMR is most suitable when a customer wants to process large amounts of scalable, dynamic data that is hosted across EC2 instances.
+
+**RDS** backups are managed by AWS and the compute capacity can be easily scaled.
+
+How can a company separate costs for network traffic, Amazon EC2, Amazon S3, and other AWS services by department?
+using tags will help the user to find out which AWS resources are used by which department. Even the billing would be made very easy by the usage of tags if there are multiple departments in an organization.
+
+AWS KMS(Key management service) provides the facility to automatically enable and disable rotation of keys.
+
+AWS IAM roles are used by EC2 instances to securely write data to an S3 bucket without using long term credentials.
+
+the U2F security key token can be used as a second factor for Multi-factor authentication.
+
+**AWS VPN** is used to connect on-premises data centers to multiple VPCs (either in the same region or in multiple regions). This is less costly but a more effective method of connectivity.
+
+enabling the server access logging on the S3 bucket helps to track the requests made to the S3 bucket that stores sensitive data.
+
+Amazon CloudWatch helps to create billing alarm on an AWS account and alarms can be created when the billing thresholds are reached as per the specifications that are described while creating the alarm.
+
+AWS Trusted Advisor gives information about S3 bucket permissions and MFA on AWS account root user.
+
+creating an IAM role and granting cross-account access to the second account is the most secure and the recommended way to grant access to a first account (or any account).
+
+when multiple EC2 instances are used in parallel, the batch workload will complete its’ run quickly. In this case, the amount of data would be processed quicker and also the processing time comes down proportionately.
+
+the **latency-based routing** of Route53 enables the best possible application performance worldwide.
+
+**Amazon GuardDuty** analyses and processes VPC flow logs, CloudTrail logs and DNS logs to check for any malicious or unauthorized activities in AWS accounts.
+
+Amazon Neptune is a fast, reliable, fully-managed graph database service that makes it easy to build and run applications that work with highly connected datasets
+
+it is the responsibility of the AWS product team to patch the guest operating system for Amazon RDS.
+
+one IAM user can be a member of multiple groups and IAM groups cannot be nested
+
+
+
+A company has an application with users in both Australia and Brazil. All the company infrastructure is currently provisioned in the Asia Pacific (Sydney) region in Australia, and Brazilian users are experiencing high latency.
+
+What should the company do to reduce latency?
+
+you need to provision the resources closer to their location and in this case, it is the South America Region in Brazil. AWS has a global presence and if the AWS resources are deployed in this region, the Brazilian users can expect very low latency if they access the AWS resources.
+
+
+Amazon S3 ( Simple Storage Service ) is object-based storage that can be used for hosting static websites too.
+
+AWS VPN and AWS Direct Connect are used for connecting the client’s on-premise data center to AWS Cloud.
+
+managing the software licenses and it’s associated cost falls within the purview of the user and not AWS.
+
+when you deploy an application across multiple availability zones, the deployed application would have higher availability (i.e.) even when the application in one availability zone fails, the application in the other availability zone can handle the request.
+
+ using **Amazon Inspector**, you can automate security vulnerability assessments and generate reports vulnerabilities and unintended network access to EC2 instances.
+
+ AWS Global Accelerator is a service that improves the availability and performance of your applications and accelerates latency-sensitive applications (i.e reduce latency between applications).
+
+AWS Global Accelerator is a service that improves the availability and performance of your applications and accelerates latency-sensitive applications (i.e reduce latency between applications).
+
+AWS Fargate you do not have the necessity to deploy EC2 instances and you can launch containers directly. AWS Fargate takes care of managing the containers.
+
