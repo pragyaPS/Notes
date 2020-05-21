@@ -78,7 +78,7 @@ You do not need to make changes to your existing code before you can use CodeDep
 
 **on-demand EC2** instances are priced on the region that is selected (Asia Pacific), the instance type and the AMI type.
 
-Elasticache can improve performance when there are frequent reads of static content on a web application. Elasticache supports two engines namely the “redis” and “memcached” and both are used for caching static content. By caching, the load on the application is reduced
+**Elasticache** can improve performance when there are frequent reads of static content on a web application. Elasticache supports two engines namely the “redis” and “memcached” and both are used for caching static content. By caching, the load on the application is reduced
 
 **CloudTrail** event logs contain the access calls to S3 from CloudFront and the logs can be filtered out for CloudFront calls. Event history allows you to view, search, and download the past 90 days of activity in your AWS account. In addition, you can create a CloudTrail trail to archive, analyze, and respond to changes in your AWS resources.
 
@@ -277,4 +277,58 @@ when you deploy an application across multiple availability zones, the deployed 
 AWS Global Accelerator is a service that improves the availability and performance of your applications and accelerates latency-sensitive applications (i.e reduce latency between applications).
 
 AWS Fargate you do not have the necessity to deploy EC2 instances and you can launch containers directly. AWS Fargate takes care of managing the containers.
+
+**Failover routing routes** the traffic to the web application that is up and running when the other co-located web application is experience degradation.
+
+SQS is used to build a decoupled architecture based on the requirements. By decoupling, it takes the operating burden off of a web application. SQS is also used to store messages and analyze them at a later time.
+
+Geolocation routing is used when you want to route traffic based on the location of the users.
+
+**VPC peering** can be used to share traffic even if the VPCs are in different regions and accounts. Also, traffic is not encrypted by default in VPC peering.
+
+you can use the AWS Management Console, the Amazon RDS Command Line Interface, or simple API calls to access the capabilities of a production-ready **relational database** in minutes and Compute scaling operations typically complete in a few minutes. RDS has the capability to scale automatically based on the load that it faces.
+
+**Amazon EBS** provides block-level storage and is a durable storage option for retaining database backups for immediate retrieval.
+
+**AWS Budgets** help to track spending at a detailed level. We can also set custom alerts for threshold spending in AWS budgets ( eg: say: 50 %, 70 %, 90% of spending level)
+
+**AWS Professional Services** assists customers with accelerating cloud adoption through paid engagements in any of several specialty practice areas. AWS Professional Services is an expert team that helps customers to understand and adapt to AWS Cloud. Please note that this is a paid service.
+
+A customer would like to design and build a new workload on AWS Cloud but does not have the AWS-related software technical expertise in-house. Which of the following AWS programs can a customer take advantage of to achieve that outcome?
+
+Answer: AWS partner networking consulting partners
+
+ **Dedicated hosts** allow you to use your existing software licenses. If you already have a Microsoft or Oracle software license, you can use them on AWS EC2 instances which would reduce your cost. Dedicated Host is integrated with AWS License Manager, which will help you manage your software licenses, like Microsoft Windows Server and Microsoft SQL Server licenses and Oracle licenses.
+
+ S3 is not a file system
+
+
+ Amazon EC2 with EBS can be used for hosting the database and can tolerate nightly shutdown. Please note that EBS backed instances can be stopped and re-started at any time. Also, EC2 gives a user full control over your database instances.
+
+ regions contain Availability Zones. AWS currently has 22 regions and 69 Availability Zones.
+
+ AWS’s Global reach is one of the features of the AWS Cloud that will support an international company's requirement for low latency to all of its customers.
+
+ CloudWatch logs provide real-time processing and adjustable retention. Data can be retained from 3 hours to 455 days based on the collection period of data points. Also, the “real-time” incident detection is possible using CloudWatch logs.
+
+ we use Amazon EC2 to create a customer-managed relational database in AWS. With EC2 instances, a user can host different database instances based on his need (eg: MySQL, PostgreSQL, MariaDB, etc).
+
+  Amazon Redshift is a fully managed, petabyte-scale data warehouse service in the cloud. Redshift is scalable and since it is fully managed by AWS, the customer is relieved of the administrative burden in hosting a data warehousing solution.
+
+  AWS S3 and CloudFront are used to store on-line videos with the lowest possible latency. CloudFront does this by means of “edge locations” that are distributed throughout the world. Amazon S3 is used to store a “virtually unlimited” amount of data that can include online video content.
+
+  **Hybrid architecture** supports both AWS EC2 instances and the legacy application running in a corporate data center. Hybrid architecture often refers to the “on-premise” servers that customers host.
+
+  S3 is object-based storage. S3 is used to store “virtually unlimited” amount of data. S3 is highly available and durable.
+
+  we need the access keys for IAM user authentication. When an IAM user is created, the ID and the keys are automatically created and a user needs to use this access key ID and the secret access key for authentication using the CLI.
+
+  Amazon Route53 and Virtual Private Gateway can be used across hybrid AWS Cloud architectures. Amazon Route53 is a domain naming service that can be used to route traffic from the on-premises data center to AWS VPC. Virtual Private Gateway acts as a connector in a site-to-site VPN connection on the AWS VPC end. It is capable of terminating VPN connections from an on-premises location to AWS VPC.
+
+
+  elastic computing would reduce the customer’s total cost of ownership.
+
+   AWS offers Trusted Advisor security checks and S3 copyrighted content detection. Trusted Advisor provides recommendations on Performance, Security, Fault tolerance, Service Limits, and Cost Optimization
+
+   AWS IAM roles are used by EC2 instances to securely write data to an S3 bucket without using long term credentials.
 
