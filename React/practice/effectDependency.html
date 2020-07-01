@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+        <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+        <script type="text/babel">
+            function Greetings(params) {
+                const [name, setName] = React.useState('');
+                const handleChange = event => setName(event.target.value);
+                React.useEffect(() => {
+                    console.log("Inside greeting useEffect");
+                    window.localStorage.setItem('name', name);
+                }, [name]);
+                return (<div>
+                <form>
+                    <label htmlFor="name">name: </label>
+                    <input type="text" id="name" onChange = {handleChange}/>
+                </form>
+                { name ? <strong>Hello {name}</strong> : 'please type your name' }
+                </div>)
+            }
+
+            function App() {
+                const [count, setCount] = React.useState(0);
+                return(
+                    <>
+                     <button onClick = {() => setCount(count+1)  } >{count}</button>
+                     <Greetings />
+                    </>
+                )
+            }
+            ReactDOM.render(<App />, document.getElementById('root'));
+        </script>
+    </body>
+</html>
