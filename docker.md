@@ -30,37 +30,17 @@ COMMANDS
 
 : docker run image
 
-References:
-https://github.com/wsargent/docker-ch...
-https://docs.docker.com/engine/refere...
 
-https://www.google.co.in/search?q=doc...
-_____________________________________________________________
+https://www.youtube.com/watch?v=LQjaJINkQXY
 
-#DockerImages #DockerContainers #DockerTutorials #DockerTraining #DevOpsTools #DevOpsTraining #DockerCommands #DockerForBeginners #DockerFreeTutorials #DockerforDevOps
+Run get executed during the building of the
+CMD runs only when we create container out of the image
 
-DOCKER PLAYLIST
-https://www.youtube.com/playlist?list...
 
-YOUTUBE PLAYLIST
-https://www.youtube.com/channel/UCTt7...
+Run docker build -t imagename:tagname "location of dockerfile"
 
-YOUTUBE
-https://www.youtube.com/automationste...
+Run image to create container
+Docker run imageId
 
-FACEBOOK
-https://www.facebook.com/automationst...
+https://github.com/wsargent/docker-cheat-sheet#dockerfile
 
-TWITTER
-https://twitter.com/automationsbs
-
-_______ ONLINE COURSES TO LEARN ________
-Visit - https://automationstepbystep.com/
-If you like videos on the channel Automation Step by Step, hit the like button and share with others.
-
-Click the SUBSCRIBE button and hit the bell icon to keep getting new videos.
-
------------- Follow ------------
-Facebook - https://www.facebook.com/automationst...
-Twitter - https://twitter.com/automationsbs
-Youtube - http://youtube.com/automationstepbystep
