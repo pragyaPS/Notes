@@ -29,5 +29,27 @@ End to End test and how its different
 **Unit**: Verify that individual, isolated parts work as expected.
 **Static**: Catch typos and type errors as you write the code.
 
+#### Snapshot testing
+snapshot testing is an assertion, just like the toBe in: expect('foo').toBe('foo'). 
+
+A test is code that throws an error when the actual result of something does not match the expected output.
+
+it is relatively easy to test "pure functions" like those in our math.js module (functions which will always return the same output for a given input and not change the state of the world around them).
+
+The part that says actual !== expected is called an "assertion." 
+Node actually has an assert module for making assertions
+
+
+    const assert = require('assert')
+    const {sum, subtract} = require('./math')
+    let result, expected
+    result = sum(3, 7)
+    expected = 10
+    assert.strictEqual(result, expected)
+    result = subtract(7, 3)
+    expected = 4
+    assert.strictEqual(result, expected)
+
+
 
 
