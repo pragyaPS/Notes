@@ -85,3 +85,14 @@ In this example, we’re capturing the name of the tag, ([a-z]\w*), that this pa
 
 
 
+let's say we want our regex to match a correct HTML element, that starts with a tag and ends with the same tag closed: <div>something</div>.
+In this case, we want to be able to reference the tag we captured previously. The notation of the backreference is the backslash followed by the number of the capture to be referenced: \1.
+In our example, we have only one capture. To match a full HTML element, the regex will look like this: /<([a-z]\w*)\b[^>]*>.*?<\/\1>/.
+It might seem confusing at first, but let’s break it down:
+.*? will match any character, except for line terminators.
+<\/\1> will match a closing HTML tag: < matches its literal self, \/ matches a / character. \1 refers back to our capture, and > matches again it’s literal self.
+This regex will match the following strings: <div> <i>something</i> </div>, <span>my span</span>, etc.
+A string like <div> something</other> will not match.
+Without the backreference, we will not be able to match a simple HTML element.
+
+
