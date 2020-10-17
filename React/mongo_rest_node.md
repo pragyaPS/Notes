@@ -21,9 +21,21 @@
 
 
 ### insomnia
-- Powerful alternative of postman
+- Powerful alternative tool of postman
 - Free
 - interact with the API
+- has support for graphQL too
+
+### middleware
+- list of functions that executes before controller (callback function on app.get/post)
+- Allows you to execute function on an incoming request with guaranteed order
+- great for authenticating, transforming the req,tracking, error handling.
+
+
+### REST routes with express
+
+
+
 
 
 
