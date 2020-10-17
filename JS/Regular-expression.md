@@ -11,7 +11,8 @@ What can u do with the regular expressions
 Try regular expression:
  https://regex101.com/r/kjpTjX/1
 
-|   |   |   |
+|   |   |   |git
+|---|---|---|
 | A single character of A,B,or C  | [abc] | `/[abc]+/g` a bb ccc|
 |A char except a,b or c | [^abc]| `/[^abc]+/g`|  
 |  A char in the range:a-z | [a-z] | `/[a-z]+/g` |
