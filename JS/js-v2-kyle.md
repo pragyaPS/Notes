@@ -160,6 +160,65 @@ under the hood it does uses Prototype
     deepJS.ask("initilised with Pragya");
     reactJs.ask("Initilised with Singh");
 
+------------------------------------------------
+attach css using link
+`<link rel="stylesheet" href="styles.css">`
+
+### splice
+let arrDeletedItems = array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
+
+let myFish = ['angel', 'clown', 'mandarin', 'sturgeon']
+let removed = myFish.splice(2, 0, 'drum')
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+
+
+### slice
+The slice() method returns the selected elements in an array, **as a new array object**.
+
+The slice() method selects the elements starting at the given start argument, and ends at, but does not include, the given end argument.
+
+    var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+    var citrus = fruits.slice(1, 3);
+    // Orange,Lemon
+
+    var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+    var myBest = fruits.slice(-3, -1);
+    // Lemon,Apple
+
+
+- Set class takes an array and returns an object distinct values in the array
+
+    let arr = [1,2,2,3,4,4];
+    [...new Set(arr.map(item => item))] // return new array with distict item
+
+- get SeconLargestNumber
+
+    function getSecondLargest(nums) {
+        let distictArray = [...new Set(nums.map(item => item))];
+        let n = distictArray.length;
+        let secondLargestNumber;
+        if(distictArray.length == 1){
+            secondLargestNumber = distictArray[0]
+        } 
+        else {
+        secondLargestNumber = distictArray.sort()[n-2];
+        }
+        return secondLargestNumber;
+        // Complete the function
+    }
+
+
+- Array.sort sorts the string 
+[1,2,10].sort() // returns [1, 10, 2]
+to sort the number pass the comapare function as callback
+
+    [1,2,10].sort((a,b) => a-b); // returns [1,2,10]
+
+
+
+
+
 
 
 
