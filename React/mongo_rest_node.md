@@ -34,6 +34,25 @@
 
 ### REST routes with express
 
+### Mongodb 
+
+#### Document database
+A record in mongodb is a document, which is a data structure composed of field and value pairs. MongoDb documents are similar to JSON objects. The values of field may include other documents, arrays, and arrays of documents.
+{
+    name: 'pragya',
+    groups: ['news', 'sports']
+}
+
+### Schema for a schemaless DB
+
+- Always us a schema for models(to avoid errors on frontend).  Mongoose makes it easy
+
+MongoDB is a schemaless document store. but u should always use schemas, if you dont want to go crazy
+
+MongoDB has added support for creating schemas but mongoose is much better
+
+
+
 
 
 
