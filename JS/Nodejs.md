@@ -221,3 +221,4 @@ Your code to be tested
 Test Suite - responsible for helping organize your tests, provide hooks, and overall environment
 Assertion library - does the actual comparisons in your test
 Mocks + Spies - tools to help you test your code without testing other code or actually running your code (mock out api calls, check to see if an internal function was called)
+
