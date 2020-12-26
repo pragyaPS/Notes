@@ -282,3 +282,256 @@ Variable
 
 Now, in our client code, we can simply pass a different variable rather than needing to construct an entirely new query. This is also in general a good practice for denoting which arguments in our query are expected to be dynamic - we should never be doing string interpolation to construct queries from user-supplied values.
 
+### Default variables
+Default values can also be assigned to the variables in the query by adding the default value after the type declaration.
+
+    query HeroNameAndFriends($episode: Episode = JEDI) {
+      hero(episode: $episode) {
+        name
+        friends {
+          name
+        }
+      }
+    }
+
+### Directives
+
+We discussed above how variables enable us to avoid doing manual string interpolation to construct dynamic queries. Passing variables in arguments solves a pretty big class of these problems, but we might also need a way to dynamically change the structure and shape of our queries using variables. For example, we can imagine a UI component that has a summarized and detailed view, where one includes more fields than the other.
+
+Let's construct a query for such a component:
+
+    query Hero($episode: Episode, $withFriends: Boolean!) {
+      hero(episode: $episode) {
+        name
+        friends @include(if: $withFriends) {
+          name
+        }
+      }
+    }
+
+variables
+
+    {
+      "episode": "JEDI",
+      "withFriends": false
+    }
+
+// output
+
+    {
+      "data": {
+        "hero": {
+          "name": "R2-D2"
+        }
+      }
+    }
+
+A directive can be attached to a field or fragment inclusion, and can affect execution of the query in any way the server desires. The core GraphQL specification includes exactly two directives, which must be supported by any spec-compliant GraphQL server implementation:
+
+- `@include(if: Boolean)` Only include this field in the result if the argument is true.
+- `@skip(if: Boolean)` Skip this field if the argument is true.
+
+### Mutations
+
+Most discussions of GraphQL focus on data fetching, but any complete data platform needs a way to modify server-side data as well.
+In REST, any request might end up causing some side-effects on the server, but by convention it's suggested that one doesn't use `GET` requests to modify data. GraphQL is similar - technically any query could be implemented to cause a data write. However, it's useful to establish a convention that any operations that cause writes should be sent explicitly via a mutation.
+
+Just like in queries, if the mutation field returns an object type, you can ask for nested fields. This can be useful for fetching the new state of an object after an update. Let's look at a simple example mutation:
+
+    mutation CreateReviewForEpisode($ep: Episode!, $review: ReviewInput!) {
+      createReview(episode: $ep, review: $review) {
+        stars
+        commentary
+      }
+    }
+variables
+
+    {
+      "ep": "JEDI",
+      "review": {
+        "stars": 5,
+        "commentary": "This is a great movie!"
+      }
+    }
+// output
+
+    {
+      "data": {
+        "createReview": {
+          "stars": 5,
+          "commentary": "This is a great movie!"
+        }
+      }
+    }
+
+There's one important distinction between `queries and mutations`, other than the name:
+
+**While query fields are executed in parallel, mutation fields run in series, one after the other.**
+This means that if we send two incrementCredits mutations in one request, the first is guaranteed to finish before the second begins, ensuring that we don't end up with a race condition with ourselves.
+
+### Meta fields
+Given that there are some situations where you don't know what type you'll get back from the GraphQL service, you need some way to determine how to handle that data on the client. GraphQL allows you to request __typename, a meta field, at any point in a query to get the name of the object type at that point.
+
+    {
+      search(text: "an") {
+        __typename
+        ... on Human {
+          name
+        }
+        ... on Droid {
+          name
+        }
+        ... on Starship {
+          name
+        }
+      }
+    }
+
+// output
+
+    {
+      "data": {
+        "search": [
+          {
+            "__typename": "Human",
+            "name": "Han Solo"
+          },
+          {
+            "__typename": "Human",
+            "name": "Leia Organa"
+          },
+          {
+            "__typename": "Starship",
+            "name": "TIE Advanced x1"
+          }
+        ]
+      }
+    }
+
+In the above query, search returns a union type that can be one of three options. It would be impossible to tell apart the different types from the client without the __typename field.
+
+GraphQL services provide a few meta fields, the rest of which are used to expose the Introspection system.
+
+## Schemas and Types
+
+Every GraphQL service defines a set of types which completely describe the set of possible data you can query on that service. Then, when queries come in, they are validated and executed against that schema.
+
+GraphQL services can be written in any language. Since we can't rely on a specific programming language syntax, like JavaScript, to talk about GraphQL schemas, we'll define our own simple language. We'll use the "GraphQL schema language" - it's similar to the query language, and allows us to talk about GraphQL schemas in a language-agnostic way.
+
+### Object types and fields
+
+The most basic components of a GraphQL schema are object types, which just represent a kind of object you can fetch from your service, and what fields it has. In the GraphQL schema language, we might represent it like this:
+
+    type Character {
+      name: String!
+      appearsIn: [Episode!]!
+    }
+
+- `Character` is a GraphQL Object Type, meaning it's a type with some fields. Most of the types in your schema will be object types.
+- `name and appearsIn` are fields on the Character type. That means that name and appearsIn are the only fields that can appear in any part of a GraphQL query that operates on the Character type.
+- `String` is one of the built-in scalar types - these are types that resolve to a single scalar object, and can't have sub-selections in the query. We'll go over scalar types more later.
+- `String!` means that the field is non-nullable, meaning that the GraphQL service promises to always give you a value when you query this field. In the type language, we'll represent those with an exclamation mark.
+- `[Episode!]!` represents an array of Episode objects. Since it is also non-nullable, you can always expect an array (with zero or more items) when you query the appearsIn field. And since Episode! is also non-nullable, you can always expect every item of the array to be an Episode object.
+
+### Arguments
+
+Every field on a GraphQL object type can have zero or more arguments, for example the length field below:
+
+    type Starship {
+      id: ID!
+      name: String!
+      length(unit: LengthUnit = METER): Float
+    }
+
+Arguments can be either required or optional. When an argument is optional, we can define a default value - if the unit argument is not passed, it will be set to METER by default.
+
+### The Query and Mutation types
+
+    type Query {
+      hero(episode: Episode): Character
+      droid(id: ID!): Droid
+    }
+
+Mutations work in a similar way - you define fields on the Mutation type, and those are available as the root mutation fields you can call in your query.
+
+It's important to remember that other than the special status of being the "entry point" into the schema, the Query and Mutation types are the same as any other GraphQL object type, and their fields work exactly the same way.
+
+GraphQL comes with a set of default scalar types out of the box:
+
+- `Int` : A signed 32‐bit integer.
+- `Float`: A signed double-precision floating-point value.
+- `String`: A UTF‐8 character sequence.
+- `Boolean`: true or false.
+- `ID`: The ID scalar type represents a unique identifier, often used to refetch an object or as the key for a cache. The ID type is serialized in the same way as a String; however, defining it as an ID signifies that it is not intended to be human‐readable.
+
+In most GraphQL service implementations, there is also a way to specify custom scalar types. For example, we could define a Date type:
+
+```scalar Date```
+Then it's up to our implementation to define how that type should be serialized, deserialized, and validated. For example, you could specify that the Date type should always be serialized into an integer timestamp, and your client should know to expect that format for any date fields
+
+### Enumeration types
+Also called Enums, enumeration types are a special kind of scalar that is restricted to a particular set of allowed values. This allows you to:
+
+Validate that any arguments of this type are one of the allowed values
+Communicate through the type system that a field will always be one of a finite set of values
+
+    enum Episode {
+      NEWHOPE
+      EMPIRE
+      JEDI
+    }
+
+Note that GraphQL service implementations in various languages will have their own language-specific way to deal with enums. In languages that support enums as a first-class citizen, the implementation might take advantage of that; in a language like JavaScript with no enum support, these values might be internally mapped to a set of integers. However, these details don't leak out to the client, which can operate entirely in terms of the string names of the enum values.
+
+if `non-null` value ends up getting a null value that will actually trigger a GraphQL `execution error`, letting the client know that something has gone wrong.
+The Non-Null type modifier can also be used when defining arguments for a field, which will cause the GraphQL server to return a `validation error` if a null value is passed as that argument, whether in the GraphQL string or in the variables.
+
+    myField: [String!]
+This means that the list itself can be null, but it can't have any null members. For example, in JSON:
+
+    myField: null // valid
+    myField: [] // valid
+    myField: ['a', 'b'] // valid
+    myField: ['a', null, 'b'] // error
+
+### Interfaces
+    interface Character {
+      id: ID!
+      name: String!
+      friends: [Character]
+      appearsIn: [Episode]!
+    }
+
+This means that any type that implements Character needs to have these exact fields, with these arguments and return types.
+
+    type Human implements Character {
+      id: ID!
+      name: String!
+      friends: [Character]
+      appearsIn: [Episode]!
+      starships: [Starship]
+      totalCredits: Int
+    }
+    
+    type Droid implements Character {
+      id: ID!
+      name: String!
+      friends: [Character]
+      appearsIn: [Episode]!
+      primaryFunction: String
+    }
+
+      hero(episode: $ep) {
+        name
+        ... on Droid {
+          primaryFunction
+        }
+      }
+    }
+
+### Union types
+Union types are very similar to interfaces, but they don't get to specify any common fields between the types.
+```
+union SearchResult = Human | Droid | Starship
+```
+Wherever we return a SearchResult type in our schema, we might get a Human, a Droid, or a Starship. Note that members of a union type need to be concrete object types; you can't create a union type out of interfaces or other unions.
