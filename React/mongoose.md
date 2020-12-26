@@ -77,6 +77,16 @@ Instances of Models are documents. Documents have many of their own built-in ins
         return mongoose.model('Animal').find({ type: this.type }, cb);
     };
 
+Now all of our animal instances have a findSimilarTypes method available to them.
+
+    const Animal = mongoose.model('Animal', animalSchema);
+    const dog = new Animal({ type: 'dog' });
+
+    dog.findSimilarTypes((err, dogs) => {
+        console.log(dogs); // woof
+    });
+
+
 - Overwriting a default mongoose document method may lead to unpredictable results. See this for more details.
 - The example above uses the Schema.methods object directly to save an instance method. You can also use the Schema.method() helper as described here.
 - Do not declare methods using ES6 arrow functions (=>). Arrow functions explicitly prevent binding this, so your method will not have access to the document and the above examples will not work.
