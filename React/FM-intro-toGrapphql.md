@@ -82,3 +82,63 @@ We've defined our schema, data set, and resolver. Now we just need to provide th
 #### start the server
 
 `node index.js`
+
+
+Apollo server loads up graphql playground on server start
+
+### We already have a DB Schema
+
+- DB Schema is for keeping data consistent when entering our DB
+- GraphQL schema is for defining what resources are available for querying, how they relate, and how you can query them
+- Both schemas can be the same, or not. DB schema is a good starting point for your GraphQL schema
+- GraphQL schema sits in front of your DB queries, it validates incoming request queries.
+- Some GraphQL tools create GraphQL APIs based off of your DB Schemas, and the other way around
+
+### Creating schemas with SDL
+ Many ways to create schemas, SDL is the best
+
+- Schema Definition Language (SDL)
+- Instead of using functions to create a schema, use a verbose, string based syntax for your schemas. Later you can transform that syntax into many other representations if needed
+- Much easier to read
+- Can be composable
+- Supported by all tools 
+
+#### Schema cheatsheet
+
+https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png
+
+### Scalar and Object types
+
+Describe resources that will be used in queries and mutations
+Scalar types are built in primitives
+- String
+- Int
+- Float
+- Boolean
+- ID
+
+- Object types are custom shapes with fields that either scalar types or other object types
+- Object type fields also describe any arguments and or validations
+- Types are the target or all requests
+
+### Query and Mutation types
+
+CRUD on your GraphQL API
+
+- Query type describes the different queries your API is capable of.
+- A query operation is just a name, with possible arguments that eventually returns a type
+- A mutation is the exact same thing, but with the intent of mutating the DB vs just reading
+- Queries and Mutations are what will be available to clients interacting with your API, think of them as your routes
+- Input is same as type the intent is to take the input
+
+### Resolvers
+
+What are resolvers?
+- Resolvers are like controllers in a REST API. They are responsible for retrieving data
+- Every query and mutation your schema has, must have a resolver that returns the specified type
+- Types and fields on types often have resolvers as well
+- Incoming query dictates what resolvers run and in what order
+
+Apollo Server needs to know how to populate data for every field in your schema so that it can respond to requests for that data. To accomplish this, it uses resolvers.
+
+A **resolver** is a function that's responsible for populating the data for a single field in your schema. It can populate that data in any way you define, such as by fetching data from a back-end database or a third-party API.
