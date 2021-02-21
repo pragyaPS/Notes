@@ -1,6 +1,5 @@
 pipeline:
 connected sequential steps. (output of one process is input of others)
-<<<<<<< HEAD
 jobs are independent from one another, they dont exchange the data if not told to
 the env where job1 executed destroys as soon as finishes the job
 we need to tell the job which is our output/artifact
@@ -47,7 +46,6 @@ The newly created build foler will not be available in repo. they are created in
 gitlab server: allows to create repo and save in a server
 assoon as we create a pipeline, its managed by server as well as its also delegated to **gitlab runner** (make sure artifacts are saved, run the pipeline etc) 
 at minimum we have one gitlab runner, but based on our requirement we can add as many runner as we want(scaledup/down)
-=======
 
 
 
