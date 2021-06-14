@@ -222,3 +222,13 @@ Test Suite - responsible for helping organize your tests, provide hooks, and ove
 Assertion library - does the actual comparisons in your test
 Mocks + Spies - tools to help you test your code without testing other code or actually running your code (mock out api calls, check to see if an internal function was called)
 
+
+
+####
+specifying type: "module" tells node js that the project is using es module format instead of commonjs format
+
+**morgan** (express's logging middleware) library is used for logging in express js
+
+
+
+
